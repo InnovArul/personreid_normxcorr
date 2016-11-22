@@ -98,7 +98,9 @@ function train()
     local time = sys.clock()
 
     --make DataParallelTable 
-    model = makeDataParallel(model, opt.nGPUs)    
+    model = makeDataParallel(model, opt.nGPUs) 
+    
+    --do return end
     
     -- set model to training mode (for modules that differ in training and testing, like Dropout)
     model:training()

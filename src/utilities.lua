@@ -25,9 +25,10 @@ require 'lfs'
 require 'image'
 require 'torch'
 require 'cutorch'
-require 'cunn'
+--require 'cunn'
 local ffi=require 'ffi'
 require 'xlua'
+require 'DataParallelTableForSiamese'
 
 STRIDE = 5
 
@@ -62,26 +63,31 @@ local t = Threads(10,
    @return creates Parallel models incase if we are using multiple GPUs
    
 ]]--
+
+model_single = {}
 function makeDataParallel(model, nGPU)
     -- if the number of GOUs used is more than 1,
-    -- create DataParallelTable
+    -- create DataParallelTableForSiamese
     if nGPU > 1 then
-      print('converting module to nn.DataParallelTable')
+      print('converting module to nn.DataParallelTableForSiamese')
       assert(nGPU <= cutorch.getDeviceCount(), 'number of GPUs less than nGPU specified')
-      local model_single = model
-      model = nn.DataParallelTable(1) --, true, true
+      model_single = model
+      model = nn.DataParallelTableForSiamese(1) --, true, true
       for i=1, nGPU do
          cutorch.setDevice(i)
          model:add(model_single:clone():cuda(), i)
       end
       
-      -- incase, if we are using DataParallelTable, create threads to avoid delay in kernel launching
+      -- incase, if we are using DataParallelTableForSiamese, create threads to avoid delay in kernel launching
       model:threads(function(idx)
+          package.path = "./modules/?.lua;" .. package.path
+          package.cpath = "./modules/?.so;" .. package.cpath
           require 'nn'
           require 'cunn'
           require 'nngraph'
           require 'cutorch'
-          require 'NormCrossMapCorrelationAcrossMaps'
+          require 'NormCrossMapCorrelation'
+          require 'CrossInputNeighborhood'
           
           cutorch.setDevice(idx)
       end);         
@@ -129,14 +135,14 @@ end
    UNUSED AS OF NOW
    name: cleanDPT
    @param
-   @return clear the DataParallelTable and return new DataParallelTable
+   @return clear the DataParallelTableForSiamese and return new DataParallelTableForSiamese
    
 ]]--
 local function cleanDPT(module)
    -- This assumes this DPT was created by the function above: all the
    -- module.modules are clones of the same network on different GPUs
    -- hence we only need to keep one when saving the model to the disk.
-   local newDPT = nn.DataParallelTable(1)
+   local newDPT = nn.DataParallelTableForSiamese(1)
    cutorch.setDevice(opt.GPU)
    newDPT:add(module:get(1), opt.GPU)
    return newDPT
@@ -150,14 +156,14 @@ end
    
 ]]--
 function saveDataParallel(filename, model)
-   if torch.type(model) == 'nn.DataParallelTable' then
+   if torch.type(model) == 'nn.DataParallelTableForSiamese' then
       -- save the model in first GPU
       temp_model = model:get(1):clearState()
       torch.save(filename, temp_model)
    elseif torch.type(model) == 'nn.Sequential' then
       local temp_model = nn.Sequential()
       for i, module in ipairs(model.modules) do
-         if torch.type(module) == 'nn.DataParallelTable' then
+         if torch.type(module) == 'nn.DataParallelTableForSiamese' then
             temp_model:add(cleanDPT(module))
          else
             temp_model:add(module)
@@ -174,7 +180,7 @@ end
    UNUSED AS OF NOW
    name: loadDataParallel 
    @param
-   @return load the saved DataParallelTable model
+   @return load the saved DataParallelTableForSiamese model
    
 ]]--
 function loadDataParallel(filename, nGPU)
@@ -182,17 +188,17 @@ function loadDataParallel(filename, nGPU)
       require 'cudnn'
    end
    local model = torch.load(filename)
-   if torch.type(model) == 'nn.DataParallelTable' then
+   if torch.type(model) == 'nn.DataParallelTableForSiamese' then
       return makeDataParallel(model:get(1):float(), nGPU)
    elseif torch.type(model) == 'nn.Sequential' then
       for i,module in ipairs(model.modules) do
-         if torch.type(module) == 'nn.DataParallelTable' then
+         if torch.type(module) == 'nn.DataParallelTableForSiamese' then
             model.modules[i] = makeDataParallel(module:get(1):float(), nGPU)
          end
       end
       return model
    else
-      error('The loaded model is not a Sequential or DataParallelTable module.')
+      error('The loaded model is not a Sequential or DataParallelTableForSiamese module.')
    end
 end
 
@@ -283,11 +289,11 @@ end
 
    name: getInternalModel 
    @param
-   @return get the internal model from wrapped model, if DataParallelTable is used
+   @return get the internal model from wrapped model, if DataParallelTableForSiamese is used
 ]]--
 function getInternalModel(model)
     currentModel = model
-    if torch.type(model) == 'nn.DataParallelTable' then
+    if torch.type(model) == 'nn.DataParallelTableForSiamese' then
         currentModel = model:get(1)
     end
     return currentModel

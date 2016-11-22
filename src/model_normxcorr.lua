@@ -29,6 +29,7 @@ require 'cunn'
 require 'cutorch'
 dofile 'utilities.lua'
 require 'nngraph';
+require 'NormCrossMapCorrelation'
 
 --[[
 opt = {}
