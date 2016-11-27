@@ -1,7 +1,7 @@
 # personreid_normxcorr
 ## repository is under construction and will be available soon
 ### contact Arulkumar (arul.csecit@ymail.com) for further details
-Deep neural network model introducing new novel matching layer called 'Normalized correlation' layer. This repository contain information about the datasets used, implementation code. The paper titled "Deep Neural Networks with Inexact Matching for Person Re-Identification" is accepted in NIPS-2016. You can find the paper [here](http://papers.nips.cc/paper/6367-deep-neural-networks-with-inexact-matching-for-person-re-identification.pdf)
+Deep neural network model introducing new novel matching layer called **'Normalized correlation'** layer. This repository contain information about the datasets used, implementation code. The paper titled **"Deep Neural Networks with Inexact Matching for Person Re-Identification"** is accepted in NIPS-2016. You can find the paper [here](http://papers.nips.cc/paper/6367-deep-neural-networks-with-inexact-matching-for-person-re-identification.pdf)
 
 ##Datasets
 |Dataset name | Description|
@@ -12,7 +12,14 @@ Deep neural network model introducing new novel matching layer called 'Normalize
 
 More dataset links can be found [here](http://robustsystems.coe.neu.edu/sites/robustsystems.coe.neu.edu/files/systems/projectpages/reiddataset.html) 
 
-##Code files
+##TODO: Preprocessing steps
+###CUHK03
+###CUHK01
+###QMULGRID
+##TODO: Options
+##TOTO: Execution
+
+##TODO: Code files
 
 |File path | purpose |
 |----------|---------|
