@@ -19,7 +19,8 @@ testsetfolders = foldernames(1:100, :);
  
 % take first 100 folder names and copy it to testsets
 dirname = 'test';
-%create a folder with name as prefix
+
+%create a folder with name, if not exists
 if(~exist(dirname, 'file'))
   mkdir(dirname); 
 end

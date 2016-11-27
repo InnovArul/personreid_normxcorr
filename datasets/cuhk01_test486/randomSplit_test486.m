@@ -17,14 +17,16 @@ foldernames = foldernames(randomorder, :);
 
 testsetfolders = foldernames(1:486, :);
 
-% take first 100 folder names and copy it to testsets
-%for index = 1:length(directories)
-    dirname = 'test';
+% take first 486 folder names and copy it to testsets
+dirname = 'test';
+
+%create a folder with name, if not exists
+if(~exist(dirname, 'file'))
+  mkdir(dirname); 
+end
     
-    for testsetIndex = 1:length(testsetfolders)
-       source = strcat(rootsource, '/', testsetfolders(testsetIndex));
-       disp(source)
-       movefile(source{:}, dirname, 'f'); 
-    end
-    
-%end
+for testsetIndex = 1:length(testsetfolders)
+   source = strcat(rootsource, '/', testsetfolders(testsetIndex));
+   disp(source)
+   movefile(source{:}, dirname, 'f'); 
+end
