@@ -28,7 +28,10 @@ NVIDIA-SMI 352.41     Driver Version: 352.41  with GeForce GTX TITAN GPUs
 
 ##TODO: Preprocessing steps
 The data-preprocessing scripts are written mainly using Lua (torch), Matlab.
-###CUHK03
+###CUHK03 (labeled & detected)
+
+`cd` to the folder `datasets/cuhk03`
+
 Follow the steps below:
 
 1. Download the CUHK03 dataset after filling out a google form available in [Rui Zhao's Homepage](http://www.ee.cuhk.edu.hk/~rzhao/)
@@ -37,7 +40,30 @@ Follow the steps below:
 
 If everything goes well, there will be 4 folders (**"labeled", "labeled_testsets", "detected", "detected_testsets"**) available in "datasets/cuhk03" folder.
 
-###CUHK01
+###CUHK01 Test100
+
+`cd` to the folder `datasets/cuhk01_test100`
+
+Follow the steps below:
+
+1. Refer to [this page](http://www.ee.cuhk.edu.hk/~xgwang/CUHK_identification.html) to get the CAMPUS person re-id dataset
+2. Extract the zip file (CAMPUS.zip) in the folder ./datasets/cuhk01_test100 (now, this folder should contain a folder named 'campus')
+3. Execute the script "execute-all.sh"
+
+If everything goes well, there will be 2 folders (**"train", "test"**) available in "datasets/cuhk01_test100" folder.
+
+###CUHK01 Test486
+
+`cd` to the folder `datasets/cuhk01_test486`
+
+Follow the steps below:
+
+1. Refer to [this page](http://www.ee.cuhk.edu.hk/~xgwang/CUHK_identification.html) to get the CAMPUS person re-id dataset
+2. Extract the zip file (CAMPUS.zip) in the folder ./datasets/cuhk01_test486 (now, this folder should contain a folder named 'campus')
+3. Execute the script "execute-all.sh"
+
+If everything goes well, there will be 2 folders (**"train", "test"**) available in "datasets/cuhk01_test486" folder.
+
 ###QMULGRID
 ##Options
 
