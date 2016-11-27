@@ -12,11 +12,73 @@ Deep neural network model introducing new novel matching layer called **'Normali
 
 More dataset links can be found [here](http://robustsystems.coe.neu.edu/sites/robustsystems.coe.neu.edu/files/systems/projectpages/reiddataset.html) 
 
+##Software prerequisites
+The code development has been done in the environment as mentioned below:
+
+#####Operating system
+Ubuntu 14.04 LTS
+
+#####Software packages used
+
+1. Torch (with packages (nn, cunn, cutorch, image) installed by default, as well as some special packages such as matio)
+2. Matlab (R2014a version) - for some data preprocessing scripts
+
+#####GPUs & drivers used
+NVIDIA-SMI 352.41     Driver Version: 352.41  with GeForce GTX TITAN GPUs
+
 ##TODO: Preprocessing steps
+The data-preprocessing scripts are written mainly using Lua (torch), Matlab.
 ###CUHK03
+Follow the steps below:
+
+1. Download the CUHK03 dataset after filling out a google form available in [Rui Zhao's Homepage](http://www.ee.cuhk.edu.hk/~rzhao/)
+2. Place the file (cuhk-03.mat) in the folder ./datasets/cuhk03
+3. Execute the script "execute-all.sh"
+
+If everything goes well, there will be 4 folders (**"labeled", "labeled_testsets", "detected", "detected_testsets"**) available in "datasets/cuhk03" folder.
+
 ###CUHK01
 ###QMULGRID
-##TODO: Options
+##Options
+
+The options used during training are available in the file "src/opts.lua"
+
+####1. Change the dataset for training
+
+```lua
+opt.dataset = 'cuhk03'; -- cuhk03  |  others
+opt.dataType = 'detected' -- labeled | detected | ''
+--------------
+opt.datasetname = 'cuhk03' -- cuhk03 | cuhk01_test100 | cuhk01_test486 | qmulgrid
+```
+The options `opt.dataset` and `opt.dataType` should be changed carefully according to the dataset. 
+#####for CUHK03
+```lua
+opt.dataset = 'cuhk03'; -- cuhk03
+opt.dataType = 'detected' -- labeled | detected
+--------------
+opt.datasetname = 'cuhk03'
+```
+#####for CUHK01 (test-100 & test-486), QMULGRID
+```lua
+opt.dataset = 'others';
+opt.dataType = ''
+--------------
+opt.datasetname = 'cuhk01_test100' -- cuhk01_test100 | cuhk01_test486 | qmulgrid
+```
+
+####2. Change the model type
+```lua
+opt.modelType = 'normxcorr' -- normxcorr | cin+normxcorr
+```
+####3. Change the Number of GPUs for training
+```lua
+opt.GPU = 1  -- default GPU to hold the original copy of model
+opt.nGPUs = 3 -- the total number of GPUs to be used during training 
+```
+
+_The other options should be left as it is (Reason: they are for future use / error handling is not proper for them)_. 
+
 ##TOTO: Execution
 
 ##TODO: Code files
