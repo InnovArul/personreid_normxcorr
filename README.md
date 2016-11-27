@@ -12,8 +12,31 @@ Deep neural network model introducing new novel matching layer called **'Normali
 
 More dataset links can be found [here](http://robustsystems.coe.neu.edu/sites/robustsystems.coe.neu.edu/files/systems/projectpages/reiddataset.html) 
 
+##Software prerequisites
+The code development has been done in the environment as mentioned below:
+
+#####Operating system
+Ubuntu 14.04 LTS
+
+#####Software packages used
+
+1. Torch (with packages installed by default, as well as some special packages such as matio)
+2. Matlab (R2014a version) - for some data preprocessing scripts
+
+#####GPUs & drivers used
+NVIDIA-SMI 352.41     Driver Version: 352.41  with GeForce GTX TITAN GPUs
+
 ##TODO: Preprocessing steps
+The data-preprocessing scripts are written mainly using Lua (torch), Matlab.
 ###CUHK03
+Follow the steps below:
+
+1. Download the CUHK03 dataset after filling out a google form available in [Rui Zhao's Homepage](http://www.ee.cuhk.edu.hk/~rzhao/)
+2. Place the file (cuhk-03.mat) in the folder ./datasets/cuhk03
+3. Execute the script "execute-all.sh"
+
+If everything goes well, there will be 4 folders (**"labeled", "labeled_testsets", "detected", "detected_testsets"**) available in "datasets/cuhk03" folder.
+
 ###CUHK01
 ###QMULGRID
 ##TODO: Options
