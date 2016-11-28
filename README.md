@@ -26,7 +26,7 @@ Ubuntu 14.04 LTS
 #####GPUs & drivers used
 NVIDIA-SMI 352.41     Driver Version: 352.41  with GeForce GTX TITAN GPUs
 
-##TODO: Preprocessing steps
+##Preprocessing steps
 The data-preprocessing scripts are written mainly using Lua (torch), Matlab.
 ###CUHK03 (labeled & detected)
 
@@ -65,7 +65,20 @@ Follow the steps below:
 If everything goes well, there will be 2 folders (**"train", "test"**) available in "datasets/cuhk01_test486" folder.
 
 ###QMULGRID
+
+`cd` to the folder `datasets/qmulgrid`
+
+Follow the steps below:
+
+1. Download the QMULGRID dataset from [here](http://personal.ie.cuhk.edu.hk/~ccloy/downloads_qmul_underground_reid.html)
+2. Extract the zip file (underground_reid.zip) in the folder ./datasets/qmulgrid (now, this folder should contain a folder named 'underground_reid')
+3. Execute the script "execute-all.sh"
+
+If everything goes well, there will be 3 folders (**"train", "test", "additionalgallery"**) available in "datasets/qmulgrid" folder.
+
 ##Options
+
+###For Training
 
 The options used during training are available in the file "src/opts.lua"
 
@@ -102,6 +115,31 @@ opt.modelType = 'normxcorr' -- normxcorr | cin+normxcorr
 opt.GPU = 1  -- default GPU to hold the original copy of model
 opt.nGPUs = 3 -- the total number of GPUs to be used during training 
 ```
+
+_The other options should be left as it is (Reason: they are for future use / error handling is not proper for them)_. 
+
+###For Testing
+Use the file 'doallTest.lua' for testing the model for any particular trained model.
+
+All you have to do is, to change the options in the file 'doallTest.lua'. Note that, 'doallTest.lua' file does not depend on 'opts.lua'.
+
+####Dataset options
+
+```lua
+opt.dataset = 'cuhk03'; -- cuhk03  |  others
+opt.datasetname = 'cuhk03'  -- cuhk03 | cuhk01_test100  | cuhk01_test486   | qmulgrid
+opt.datapath = '../datasets/' .. opt.datasetname .. '/' 
+opt.dataType = 'detected' 
+```
+The meaning of these options is as same as the training options mentioned above. As per these options, the data will be read from appropriate 
+dataset directory, tests will be carried out for 10 times and average CMC (Cumulative Matching Characteristics) will be calculated at the end of the tests.
+
+####Model path specification
+
+```lua
+MODEL_PATH = '<absolute/relative path>' -- exact path of the model
+```
+The test log will be created in the same path of the model.
 
 _The other options should be left as it is (Reason: they are for future use / error handling is not proper for them)_. 
 
