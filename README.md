@@ -163,14 +163,25 @@ After setting the [options](https://github.com/InnovArul/personreid_normxcorr#fo
 th doallTest.lua
 ```
 
-##Code files
+##Important Code files
 
 |File path | purpose |
 |----------|---------|
 |src/doall.lua | the main file to be executed for training|
 |src/doallTest.lua | the test execution file to get CMC (Cumulative Matching Characteristics) percentages for a particular model and dataset)|
-|src/model_xxxx.lua | defines a particular type of model|
-|src/train.lua | training subroutine|
+|src/model_<xxxx>.lua | defines a particular type of model|
+|src/trainMultiGPU.lua | training subroutine using Multi GPUs|
+|src/dataForTests.lua | data reading procedures for 'test'; reads the data depending on the options set in `doallTest.lua`|
+|src/data.lua  | data reading procedures for training and validation; reads the data depending on the options set in `opts.lua`|
+|src/log.lua|logging helper functions. copied from [here](https://github.com/rxi/log.lua)|
+|src/rankScores.lua|to rank the gallery images based on Softmax scores|
+|src/doallTest.lua| code to carry out test for a particular trained model and dataset |
+|src/doall.lua| code to carry out training for a particular dataset and type of model sepcified in `opts.lua`|
+|src/loss.lua| defines loss/objective/criterion function (negative log likelihood - NLL) used during training |
+|src/opts.lua|contains options for training|
+|src/test.lua | testing subroutine to test for probe images and rank the gallery based on softmax classifier scores (applicable for both validation and testing)|
+|src/utilities.lua|contains miscellaneous multi-purpose utility functions that are used in other code files|
+|src/modules/* | contains code files for Normalized correlation Matching layer (`NormCrossMapCorrelation.lua`), Ahmed at al.'s Cross Input Neighborhood layer (`CrossInputNeighborhood.lua`), Parallel Multi GPU model training package (`DataParallelTableForSiamese.lua`) inspired and adapted from Facebook's torch [`DataParallelTable.lua`] (https://github.com/torch/cunn/blob/master/DataParallelTable.lua) and CUDA C++ implementation of modules|
 -----------------------
 
 ###Citation 
