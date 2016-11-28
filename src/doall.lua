@@ -61,8 +61,6 @@ create_model();
 while (epoch <= 20) do
     train();
     
-    do return end
-    
     --do return end
     test();
 end

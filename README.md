@@ -143,9 +143,27 @@ The test log will be created in the same path of the model.
 
 _The other options should be left as it is (Reason: they are for future use / error handling is not proper for them)_. 
 
-##TOTO: Execution
+##Execution
+To execute a particular file (`doall.lua`,`doallTest.lua`), first `cd` to the folder `./src` folder.
 
-##TODO: Code files
+####Training
+
+After making sure that the [preprocessing](https://github.com/InnovArul/personreid_normxcorr#preprocessing-steps) of the data is done correctly and setting all the [options](https://github.com/InnovArul/personreid_normxcorr#for-training) accordingly, execute the file `doall.lua` as,
+
+```sh
+th doall.lua
+```
+The trained model(s) will be stored (after every epoch) in the folder './scratch'. 
+
+####Testing
+
+After setting the [options](https://github.com/InnovArul/personreid_normxcorr#for-testing) for test in 'doallTest.lua' file, execute it as,
+
+```sh
+th doallTest.lua
+```
+
+##Code files
 
 |File path | purpose |
 |----------|---------|

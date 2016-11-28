@@ -11,7 +11,7 @@ opt.useCuda = true; --true / false
 opt.optimization = 'SGD'   -- CG  | LBFGS  |  SGD   | ASGD
 opt.dataset = 'cuhk03'; -- cuhk03  |  others
 opt.datasetname = 'cuhk03'
-opt.datapath = '../../personreid/datasets/dummy/' .. opt.datasetname .. '/'
+opt.datapath = '../datasets/' .. opt.datasetname .. '/'
 opt.dataType = 'detected' -- labeled | detected
 opt.testmode = 'validation' -- validation | test
 opt.learningRate = 0.05
@@ -25,13 +25,14 @@ opt.xnormcorrEps = 0.01
 opt.traintype = ''
 opt.plot = true
 opt.GPU = 1
-opt.nGPUs = 2
+opt.nGPUs = 3
 
 rootLogFolder = paths.concat(lfs.currentdir() .. '/../', 'scratch', opt.dataset) 
-opt.save = paths.concat(rootLogFolder, os.date("%d-%b-%Y-%X-") .. 'personreiddummy_' .. opt.modelType .. '_' .. opt.datasetname .. '_' .. opt.dataType);
+opt.save = paths.concat(rootLogFolder, os.date("%d-%b-%Y-%X-") .. 'personreid_' .. opt.modelType .. '_' .. opt.datasetname .. '_' .. opt.dataType);
 
 print("options read from opts.lua")
 dofile 'utilities.lua'
+
 --if the save folder doesnot exist, create one
 if(not isFolderExists(opt.save)) then
     paths.mkdir(opt.save)
