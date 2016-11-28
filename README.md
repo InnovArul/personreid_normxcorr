@@ -1,4 +1,4 @@
-# personreid_normxcorr
+# Person Re-Identification with Normalized correlation matching layer
 
 Deep neural network model introducing new novel matching layer called **'Normalized correlation'** layer. This repository contain information about the datasets used, implementation code. The paper titled **"Deep Neural Networks with Inexact Matching for Person Re-Identification"** is accepted in NIPS-2016. You can find the paper [here](http://papers.nips.cc/paper/6367-deep-neural-networks-with-inexact-matching-for-person-re-identification.pdf)
 
@@ -168,7 +168,7 @@ th doallTest.lua
 |----------|---------|
 |src/doall.lua | the main file to be executed for training|
 |src/doallTest.lua | the test execution file to get CMC (Cumulative Matching Characteristics) percentages for a particular model and dataset)|
-|src/model_<xxxx>.lua | defines a particular type of model|
+|src/model_\<xxxx>.lua | defines a particular type of model|
 |src/trainMultiGPU.lua | training subroutine using Multi GPUs|
 |src/dataForTests.lua | data reading procedures for 'test'; reads the data depending on the options set in `doallTest.lua`|
 |src/data.lua  | data reading procedures for training and validation; reads the data depending on the options set in `opts.lua`|
