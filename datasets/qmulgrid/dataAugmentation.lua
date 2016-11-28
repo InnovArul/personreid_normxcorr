@@ -2,7 +2,7 @@ require'lfs'
 require 'image'
 require 'pl'
 
-source = '../train'; 
+source = './train'; 
 
 -- set the random number seed
 math.randomseed( os.time() )
@@ -79,7 +79,6 @@ function augmentImages(sourcepath)
                     imgTranslated = image.translate(img, randomWidth, randomHeight)
                     image.save(imgSavePath, imgTranslated)
                     print('saved image with translation : ' .. randomWidth .. 'x' .. randomHeight)
-                    --io.read()
 
                     -- save the flipped translated image
                     imgFlipped = image.hflip(imgTranslated)
