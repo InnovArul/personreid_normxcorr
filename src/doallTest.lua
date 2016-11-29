@@ -52,7 +52,7 @@ opt.testmode = 'test' -- test
 opt.modelType = 'normxcorr'-- normxcorr | cin+normxcorr
 opt.scale = {1}
 
-MODEL_PATH = '../scratch/cuhk03/27-Nov-2016-17:53:15-personreiddummy_normxcorr_cuhk03_detected/normxcorr_cuhk03_detected#3.net'
+MODEL_PATH = '../scratch/cuhk03/27-Nov-2016-17:53:15-personreiddummy_normxcorr_cuhk03_detected/normxcorr_cuhk03_detected#6.net'
 --------------------------------------------------------------------------------------------------
 
 opt.save = paths.dirname(MODEL_PATH)
@@ -60,8 +60,12 @@ MODEL_NAME = paths.basename(MODEL_PATH, paths.extname(MODEL_PATH))
 opt.logFile = paths.concat(opt.save, MODEL_NAME .. '_forCMC.log')
 opt.testErrorFile = paths.concat(opt.save, MODEL_NAME .. '_forCMC.eps')
 logger.outfile = opt.logFile;
-logger.trace(opt.save)
-logger.trace(opt.logFile)
+
+logger.trace("model name : " .. MODEL_NAME)
+logger.trace("log save path : " .. opt.save)
+logger.trace("log file : " .. opt.logFile)
+
+print("press <ENTER>, if the details are correct!");
 io.read()
 
 ----------------------------criterion definition---------------------------

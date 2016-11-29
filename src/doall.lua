@@ -40,6 +40,7 @@ logger.trace(SAVE_MODEL_NAME)
 logger.trace('OPTIONS:');
 for k,v in pairs(opt) do logger.trace(k,v) end
 
+print("press <ENTER>, if the details are correct!");
 io.read()
 
 dofile 'data.lua';
