@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/69573427.svg)](https://zenodo.org/badge/latestdoi/69573427)
 # Person Re-Identification with Normalized correlation matching layer
 
 Deep neural network model introducing new novel matching layer called **'Normalized correlation'** layer. This repository contain information about the datasets used, implementation code. The paper titled **"Deep Neural Networks with Inexact Matching for Person Re-Identification"** is accepted in NIPS-2016. You can find the paper [here](http://papers.nips.cc/paper/6367-deep-neural-networks-with-inexact-matching-for-person-re-identification.pdf)
