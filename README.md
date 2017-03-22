@@ -26,9 +26,9 @@ Ubuntu 14.04 LTS
 ##### GPUs & drivers used
 NVIDIA-SMI 352.41     Driver Version: 352.41  with GeForce GTX TITAN GPUs
 
-##Preprocessing steps
+## Preprocessing steps
 The data-preprocessing scripts are written mainly using Lua (torch), Matlab.
-###CUHK03 (labeled & detected)
+### CUHK03 (labeled & detected)
 
 `cd` to the folder `datasets/cuhk03`
 
@@ -143,7 +143,7 @@ The test log will be created in the same path of the model.
 
 _The other options should be left as it is (Reason: they are for future use / error handling is not proper for them)_. 
 
-##Execution
+## Execution
 To execute a particular file (`doall.lua`,`doallTest.lua`), first `cd` to the folder `./src` folder.
 
 #### Training
