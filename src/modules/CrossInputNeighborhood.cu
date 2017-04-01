@@ -60,7 +60,7 @@ __global__ void _calcNeighborhoodDifference(const float* input, int layersCount,
 	}
 }
 
-void updateOutput(THCState *state, THCudaTensor *input, THCudaTensor *output1, THCudaTensor *output2) {
+void CIN_updateOutput(THCState *state, THCudaTensor *input, THCudaTensor *output1, THCudaTensor *output2) {
     THCUNN_assertSameGPU(state, 3, input, output1, output2);
 
 	int inputLayers = input->size[0];
@@ -133,7 +133,7 @@ __global__ void _calcGradInput(const float* input, int layersCount, int rowsCoun
 }
 
 
-void updateGradInput(THCState *state, THCudaTensor *input, THCudaTensor *gradOutput1, THCudaTensor *gradOutput2, THCudaTensor *gradInput) {
+void CIN_updateGradInput(THCState *state, THCudaTensor *input, THCudaTensor *gradOutput1, THCudaTensor *gradOutput2, THCudaTensor *gradInput) {
 
 	//determine gradInput sizes
 	int layersCount = input->size[0];

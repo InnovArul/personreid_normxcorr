@@ -343,7 +343,7 @@ void NCMC_calcMeanAndStdMaps(float* input, int numLayers, int mapHeight, int map
 	ELEMENT(stdMaps, layerNumber, inputRowNumber, inputColumnNumber, mapHeight + 4, mapWidth) = std;
 }
 
-void updateOutput(THCState *state, THCudaTensor *input, THCudaTensor *output, int patchwidth, int verticalWidth, THCudaTensor *meanMaps, THCudaTensor *stdMaps) {
+void NCMC_updateOutput(THCState *state, THCudaTensor *input, THCudaTensor *output, int patchwidth, int verticalWidth, THCudaTensor *meanMaps, THCudaTensor *stdMaps) {
 
 	THCUNN_assertSameGPU(state, 2, input, output);
 
@@ -690,7 +690,7 @@ void NCMC_calcNormCrossMapCorrelationGradInput(float* input, float* output, int 
 
 }
 
-void updateGradInput(THCState *state, THCudaTensor *input, THCudaTensor *output, THCudaTensor *gradOutput, THCudaTensor *gradInput, int patchwidth, int verticalWidth, THCudaTensor *meanMaps, THCudaTensor *stdMaps) {
+void NCMC_updateGradInput(THCState *state, THCudaTensor *input, THCudaTensor *output, THCudaTensor *gradOutput, THCudaTensor *gradInput, int patchwidth, int verticalWidth, THCudaTensor *meanMaps, THCudaTensor *stdMaps) {
 
 	//determine gradInput sizes
 	int numLayers = input->size[0];

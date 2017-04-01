@@ -6,9 +6,9 @@ require 'cutorch'
 require 'torch'
 ffi = require("ffi")
 ffi.cdef[[
-    void updateOutput(THCState *state, THCudaTensor *input, THCudaTensor *output, int patchwidth, int verticalWidth, 
+    void NCMC_updateOutput(THCState *state, THCudaTensor *input, THCudaTensor *output, int patchwidth, int verticalWidth, 
                       THCudaTensor *meanMaps, THCudaTensor *stdMaps);
-    void updateGradInput(THCState *state, THCudaTensor *input, THCudaTensor *output, THCudaTensor *gradOutput, 
+    void NCMC_updateGradInput(THCState *state, THCudaTensor *input, THCudaTensor *output, THCudaTensor *gradOutput, 
                         THCudaTensor *gradInput, int patchwidth, int verticalWidth, THCudaTensor *meanMaps, THCudaTensor *stdMaps);
 ]]
 
@@ -36,7 +36,7 @@ end
 function NormCrossMapCorrelation:updateOutput(input)
   local cutorchState = cutorch.getState()
   cbind = ffi.load(paths.dirname(paths.thisfile()) .. "/libNormCrossMapCorrelation.so");
-  cbind.updateOutput(cutorchState,
+  cbind.NCMC_updateOutput(cutorchState,
                     input:cdata(), 
                     self.output:cdata(),
                     self.patchwidth,
@@ -55,7 +55,7 @@ function NormCrossMapCorrelation:updateGradInput(input, gradOutput)
   local cutorchState = cutorch.getState()
   cbind = ffi.load(paths.dirname(paths.thisfile()) .. "/libNormCrossMapCorrelation.so");
   
-  cbind.updateGradInput(cutorchState,
+  cbind.NCMC_updateGradInput(cutorchState,
                       input:cdata(),
                       self.output:cdata(),
                       self.gradOutput:cdata(),

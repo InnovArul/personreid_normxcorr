@@ -8,8 +8,8 @@ require 'lfs'
 local ffi = require("ffi")
 
 ffi.cdef[[
-void updateOutput(THCState *state, THCudaTensor *input, THCudaTensor *output1, THCudaTensor *output2);
-void updateGradInput(THCState *state, THCudaTensor *input, THCudaTensor *gradOutput1, THCudaTensor *gradOutput2, THCudaTensor *gradInput);
+void CIN_updateOutput(THCState *state, THCudaTensor *input, THCudaTensor *output1, THCudaTensor *output2);
+void CIN_updateGradInput(THCState *state, THCudaTensor *input, THCudaTensor *gradOutput1, THCudaTensor *gradOutput2, THCudaTensor *gradInput);
 ]]
 
 function CrossInputNeighborhood:__init()
@@ -54,7 +54,7 @@ function CrossInputNeighborhood:updateOutput(input)
     --  
     local cutorchState = cutorch.getState()
     cbind = ffi.load(paths.dirname(paths.thisfile()) .. "/libCrossInputNeighborhood.so");
-    cbind.updateOutput(cutorchState, input:cdata(), self.output1:cdata(), self.output2:cdata());
+    cbind.CIN_updateOutput(cutorchState, input:cdata(), self.output1:cdata(), self.output2:cdata());
     cbind = ffi.NULL;
     self.output = {self.output1, self.output2};
     
@@ -66,7 +66,7 @@ function CrossInputNeighborhood:updateGradInput(input, gradOutput)
     self.gradOutput2:resizeAs(gradOutput[2]):copy(gradOutput[2]);
     local cutorchState = cutorch.getState()
     cbind = ffi.load(paths.dirname(paths.thisfile()) .. "/libCrossInputNeighborhood.so");
-    cbind.updateGradInput(cutorchState, input:cdata(), self.gradOutput1:cdata(), self.gradOutput2:cdata(), self.gradInput:cdata());
+    cbind.CIN_updateGradInput(cutorchState, input:cdata(), self.gradOutput1:cdata(), self.gradOutput2:cdata(), self.gradInput:cdata());
     cbind = ffi.NULL;
     return self.gradInput
 end 
