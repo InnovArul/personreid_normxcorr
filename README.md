@@ -1,8 +1,9 @@
+[![DOI](https://zenodo.org/badge/69573427.svg)](https://zenodo.org/badge/latestdoi/69573427)
 # Person Re-Identification with Normalized correlation matching layer
 
 Deep neural network model introducing new novel matching layer called **'Normalized correlation'** layer. This repository contain information about the datasets used, implementation code. The paper titled **"Deep Neural Networks with Inexact Matching for Person Re-Identification"** is accepted in NIPS-2016. You can find the paper [here](http://papers.nips.cc/paper/6367-deep-neural-networks-with-inexact-matching-for-person-re-identification.pdf)
 
-##Datasets
+## Datasets
 |Dataset name | Description|
 |-------------|------------|
 |CUHK03 (Labeled & Detected) |A collection of 13,164 images of 1360 people captured from 6 different surveillance cameras, with each person observed by 2 cameras with disjoint views. <br><br> The dataset comes with manual (**"Labeled" dataset**) and algorithmically (**"Detected" dataset**) labeled pedestrian bounding boxes. The dataset can be obtained from [here](http://www.ee.cuhk.edu.hk/~rzhao/)|
@@ -11,23 +12,23 @@ Deep neural network model introducing new novel matching layer called **'Normali
 
 More dataset links can be found [here](http://robustsystems.coe.neu.edu/sites/robustsystems.coe.neu.edu/files/systems/projectpages/reiddataset.html) 
 
-##Software prerequisites
+## Software prerequisites 
 The code development has been done in the environment as mentioned below:
 
-#####Operating system
+##### Operating system
 Ubuntu 14.04 LTS
 
-#####Software packages used
+##### Software packages used
 
 1. Torch (with packages (nn, cunn, cutorch, image) installed by default, as well as some special packages such as matio)
 2. Matlab (R2014a version) - for some data preprocessing scripts
 
-#####GPUs & drivers used
+##### GPUs & drivers used
 NVIDIA-SMI 352.41     Driver Version: 352.41  with GeForce GTX TITAN GPUs
 
-##Preprocessing steps
+## Preprocessing steps
 The data-preprocessing scripts are written mainly using Lua (torch), Matlab.
-###CUHK03 (labeled & detected)
+### CUHK03 (labeled & detected)
 
 `cd` to the folder `datasets/cuhk03`
 
@@ -39,7 +40,7 @@ Follow the steps below:
 
 If everything goes well, there will be 4 folders (**"labeled", "labeled_testsets", "detected", "detected_testsets"**) available in "datasets/cuhk03" folder.
 
-###CUHK01 Test100
+### CUHK01 Test100
 
 `cd` to the folder `datasets/cuhk01_test100`
 
@@ -51,7 +52,7 @@ Follow the steps below:
 
 If everything goes well, there will be 2 folders (**"train", "test"**) available in "datasets/cuhk01_test100" folder.
 
-###CUHK01 Test486
+### CUHK01 Test486
 
 `cd` to the folder `datasets/cuhk01_test486`
 
@@ -63,7 +64,7 @@ Follow the steps below:
 
 If everything goes well, there will be 2 folders (**"train", "test"**) available in "datasets/cuhk01_test486" folder.
 
-###QMULGRID
+### QMULGRID
 
 `cd` to the folder `datasets/qmulgrid`
 
@@ -75,13 +76,13 @@ Follow the steps below:
 
 If everything goes well, there will be 3 folders (**"train", "test", "additionalgallery"**) available in "datasets/qmulgrid" folder.
 
-##Options
+## Options
 
-###For Training
+### For Training
 
 The options used during training are available in the file "src/opts.lua"
 
-####1. Change the dataset for training
+#### 1. Change the dataset for training
 
 ```lua
 opt.dataset = 'cuhk03'; -- cuhk03  |  others
@@ -90,14 +91,14 @@ opt.dataType = 'detected' -- labeled | detected | ''
 opt.datasetname = 'cuhk03' -- cuhk03 | cuhk01_test100 | cuhk01_test486 | qmulgrid
 ```
 The options `opt.dataset` and `opt.dataType` should be changed carefully according to the dataset. 
-#####for CUHK03
+##### for CUHK03
 ```lua
 opt.dataset = 'cuhk03'; -- cuhk03
 opt.dataType = 'detected' -- labeled | detected
 --------------
 opt.datasetname = 'cuhk03'
 ```
-#####for CUHK01 (test-100 & test-486), QMULGRID
+##### for CUHK01 (test-100 & test-486), QMULGRID
 ```lua
 opt.dataset = 'others';
 opt.dataType = ''
@@ -105,11 +106,11 @@ opt.dataType = ''
 opt.datasetname = 'cuhk01_test100' -- cuhk01_test100 | cuhk01_test486 | qmulgrid
 ```
 
-####2. Change the model type
+#### 2. Change the model type
 ```lua
 opt.modelType = 'normxcorr' -- normxcorr | cin+normxcorr
 ```
-####3. Change the Number of GPUs for training
+#### 3. Change the Number of GPUs for training
 ```lua
 opt.GPU = 1  -- default GPU to hold the original copy of model
 opt.nGPUs = 3 -- the total number of GPUs to be used during training 
@@ -117,12 +118,12 @@ opt.nGPUs = 3 -- the total number of GPUs to be used during training
 
 _The other options should be left as it is (Reason: they are for future use / error handling is not proper for them)_. 
 
-###For Testing
+### For Testing
 Use the file 'doallTest.lua' for testing the model for any particular trained model.
 
 All you have to do is, to change the options in the file 'doallTest.lua'. Note that, 'doallTest.lua' file does not depend on 'opts.lua'.
 
-####Dataset options
+#### Dataset options
 
 ```lua
 opt.dataset = 'cuhk03'; -- cuhk03  |  others
@@ -133,7 +134,7 @@ opt.dataType = 'detected'
 The meaning of these options is as same as the training options mentioned above. As per these options, the data will be read from appropriate 
 dataset directory, tests will be carried out for 10 times and average CMC (Cumulative Matching Characteristics) will be calculated at the end of the tests.
 
-####Model path specification
+#### Model path specification
 
 ```lua
 MODEL_PATH = '<absolute/relative path>' -- exact path of the model
@@ -142,10 +143,10 @@ The test log will be created in the same path of the model.
 
 _The other options should be left as it is (Reason: they are for future use / error handling is not proper for them)_. 
 
-##Execution
+## Execution
 To execute a particular file (`doall.lua`,`doallTest.lua`), first `cd` to the folder `./src` folder.
 
-####Training
+#### Training
 
 After making sure that the [preprocessing](https://github.com/InnovArul/personreid_normxcorr#preprocessing-steps) of the data is done correctly and setting all the [options](https://github.com/InnovArul/personreid_normxcorr#for-training) accordingly, execute the file `doall.lua` as,
 
@@ -154,7 +155,7 @@ th doall.lua
 ```
 The trained model(s) will be stored (after every epoch) in the folder './scratch'. 
 
-####Testing
+#### Testing
 
 After setting the [options](https://github.com/InnovArul/personreid_normxcorr#for-testing) for test in 'doallTest.lua' file, execute it as,
 
@@ -162,7 +163,7 @@ After setting the [options](https://github.com/InnovArul/personreid_normxcorr#fo
 th doallTest.lua
 ```
 
-##Important Code files
+## Important Code files
 
 |File path | purpose |
 |----------|---------|
@@ -183,7 +184,7 @@ th doallTest.lua
 |src/modules/* | contains code files for Normalized correlation Matching layer (`NormCrossMapCorrelation.lua`), Ahmed at al.'s Cross Input Neighborhood layer (`CrossInputNeighborhood.lua`), Parallel Multi GPU model training package (`DataParallelTableForSiamese.lua`) inspired and adapted from Facebook's torch [`DataParallelTable.lua`] (https://github.com/torch/cunn/blob/master/DataParallelTable.lua) and CUDA C++ implementation of modules|
 -----------------------
 
-###Citation 
+### Citation 
 
 ```
 @inproceedings{subramaniam2016deep,
