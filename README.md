@@ -3,6 +3,14 @@
 
 Deep neural network model introducing new novel matching layer called **'Normalized correlation'** layer. This repository contain information about the datasets used, implementation code. The paper titled **"Deep Neural Networks with Inexact Matching for Person Re-Identification"** is accepted in NIPS-2016. You can find the paper [here](http://papers.nips.cc/paper/6367-deep-neural-networks-with-inexact-matching-for-person-re-identification.pdf)
 
+## Video & Poster
+A short video that was prepared for NIPS-2016:
+
+<a href="http://www.youtube.com/watch?v=lGF72baKnSk" target="_blank">
+<img src="http://img.youtube.com/vi/lGF72baKnSk/0.jpg" alt="Deep Neural Networks with Inexact Matching for Person Re-Identification"/></a>
+
+Poster of the paper can be found <a href="https://github.com/InnovArul/personreid_normxcorr/tree/master/docs/normxcorr_personreid.pdf" target="_blank">here.</a>
+
 ## Datasets
 |Dataset name | Description|
 |-------------|------------|
