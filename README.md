@@ -11,6 +11,8 @@ A short video that was prepared for NIPS-2016:
 
 Poster of the paper can be found <a href="https://github.com/InnovArul/personreid_normxcorr/tree/master/docs/normxcorr_personreid.pdf" target="_blank">here.</a>
 
+An independent implementation in Keras by [sumedhpendurkar@github](https://github.com/sumedhpendurkar) can be found [here](https://github.com/sumedhpendurkar/Normalized-X-Corr-Model) & an explanation about the implementation is [here](https://software.intel.com/en-us/articles/keras-implementation-of-siamese-like-networks).
+
 ## Datasets
 |Dataset name | Description|
 |-------------|------------|
